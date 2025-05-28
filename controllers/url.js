@@ -2,7 +2,12 @@ const shortid = require("shortid");
 const URL = require("../models/url.js");
 async function handleGenerateNewShortURL(req, res) {
   const body = req.body;
-  if (!body.url) return res.status(400).json({ error: "url is required" });
+  if (!body.url) {
+    return res
+      .status(400)
+      .send("URL field cannot be empty. Please provide a valid URL.");
+
+  }
   const shortID = shortid();
 
   await URL.create({
